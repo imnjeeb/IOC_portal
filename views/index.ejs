@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+  </head>
+  <body>
+  <section id="container">
+    <!-- Start of Main Content -->
+    <section id="main-content">
+      <section class="wrapper">
+
+        <div class="row no-gutter">
+          <div class="col-lg-9 col-md-9">
+
+            <!-- Start of Map -->
+            <div class="row map-gutter">
+              <div class="col-lg-12">
+                <div class="panel">
+                  <div class="panel-footer">Dashboards</div>
+                  <!--subscriber list-->
+                  <div class="col-lg-2 col-md-3">
+                    <div class="pad box-pane-left bg-green" style="min-height: 180px">
+                      <header class="tab-bg-primary">
+                        <h4>Subscriber List</h4>
+                      </header>
+                      <div id="subscriber-list" class="list-subscriber" style="overflow:auto; height: 380px;">
+                        <!--list fetch from api-->
+
+                      </div>
+                    <!--end of subscriber list-->
+                      </div>
+                  </div>
+                  <!--map-->
+                  <div class="col-lg-10 col-md-9">
+                    <div id="map" class="panel-body-map"></div>
+                  </div>
+                  <!--end of map-->
+                </div>
+              </div>
+            </div>
+            <!-- End of Map -->
+            <!--alerts datatable-->
+            <div class="row alert_panel" >
+              <div class="col-md-12">
+                <div class="panel">
+                  <div class="panel-footer">Alert List Monitor</div>
+                  <div id="alert_view" class="panel-body">
+                    <table id="alert-data-list" class="display row-border stripe pretty" cellspacing="2">
+                      <thead>
+                      <tr>
+                        <th>Timestamp</th>
+                        <th>Alert</th>
+                        <th class="text text-center">Status</th><!--status?new:pending:completed-->
+                        <th>Details</th>
+                        <th>Action</th>
+                      </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--details-->
+          <div id="detail-panel" class="col-lg-3 col-md-3">
+            <div class="panel">
+              <div class="panel-footer">Client Details</div>
+              <div id="trigger-alert" class="panel-details">
+                <div id="trigger-client" class="desc" style="height: 170px;">
+                  <div class="thumb">
+                    <img class="img-circle" id="client-img" src="" width="48px" height="48px" align="">
+                  </div>
+                  <div class="details">
+                    <p><i class="fa fa-user"></i><span id="client-name" class="truncate-client"> </span>
+                      <br/>
+                      <i class="fa fa-home"></i><span id="client-loc" class="truncate-address"> </span>
+                      <br/>
+                      <i class="fa fa-clock-o"></i><span id="expired-in"></span>
+                      <br/>
+                      <i class="fa fa-phone"></i><span id="neighbour-call">
+
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <!--media-->
+                <div class="desc" style="height: 345px;">
+                  <h4>Alerts View</h4>
+                  <div id="alert-container" hidden>
+                    <header class="tab-bg-primary">
+                      <ul id="deviceTabs" class="nav nav-tabs">
+                        <li class="active">
+                          <a data-toggle="tab" href="#snapshot">Snapshot</a>
+                        </li>
+                        <li class="">
+                          <a data-toggle="tab" href="#vod">Recording</a>
+                        </li>
+                      </ul>
+                    </header>
+                    <div class="tab-content">
+                      <div id="snapshot" class="tab-pane active">
+                        <img src="https://api.netatmo.com/api/getcamerapicture?image_id=5787558c6b0aff136d8b463c&key=51660b852762b0c240538ffe476908c8e38739f92d630eef11d882ca03c82864"
+                             width="100%" height="100%"
+                             alt="">
+                      </div>
+                      <div id="vod" class="tab-pane">
+                        <!--width="900.8" height="506.7"-->
+                        <!--width="331.5" height="175"-->
+                        <video id="home-video" class="video-js" controls preload="auto" width="351.5" height="200"
+                               poster="" data-setup="{}">
+                          <!--https://3.vpn.netatmo.net/10.255.8.224/4dca206b3cf237bbc61e745ece703454/O7lsiv1rsEYhMcAFSnyKhIJ-LZo,/live/index.m3u8-->
+                          <source src="https://3.vpn.netatmo.net/10.255.10.246/ff83b75e7a7de8150c85c8d92ade57c2/D8_b22ZPVNVftU7BEBrVctmMUOE,/vod/ad80bf43-09d2-4cda-86ee-82a406e84aba/index.m3u8"
+                                  type="application/x-mpegURL">
+                          <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                          </p>
+                        </video>
+
+                        <script>
+                          var player = videojs('home-video');
+                        </script>
+                      </div>
+                    </div>
+                    <p>
+                      <br/>
+                      <!--<a href="#">Video Link</a>-->
+                    </p>
+                  </div>
+                </div>
+                <!--end of media-->
+                <!--contact-->
+                <div class="desc">
+                  <h4>Emergency</h4>
+                  <div class="emergency-contact">
+                    <i class="fa fa-ambulance"></i><span> 911</span>
+                    <div class="pull-right">
+                      <a class="btn btn-default" href="">
+                        <i class="fa fa-envelope" title="Message" aria-hidden="true"></i>
+                        <span class="sr-only">Message</span>
+                      </a>
+
+                      <a class="btn btn-success" href="">
+                        <i class="fa fa-phone" aria-hidden="true" title="Call"></i>
+                        <span class="sr-only">Call</span>
+                      </a>
+                    </div>
+
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="emergency-contact">
+                    <i class="fa fa-user-secret"></i><span> Police</span>
+                    <div class="pull-right">
+                      <a class="btn btn-default" href="">
+                        <i class="fa fa-envelope" title="Message" aria-hidden="true"></i>
+                        <span class="sr-only">Message</span>
+                      </a>
+
+                      <a class="btn btn-success" href="">
+                        <i class="fa fa-phone" aria-hidden="true" title="Call"></i>
+                        <span class="sr-only">Call</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="clear" class="clearfix"></div>
+          </div>
+          <!--end of details-->
+        </div>
+      </section>
+    </section>
+    <!-- End of main content -->
+  </section>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWUMinfvGZQYP3Ow_h71CnCqYaEOrvJj0"
+  ></script>
+  <script>
+    var serverUrl = '<%=serverUrl %>';//, s2 = "localhost:1880";
+    var wsUriHook  = "ws://"+serverUrl+"/ws/webhook/events",
+        wsUriSubs = "ws://"+serverUrl+"/ws/subscriber/events";
+    var wsWebHook, wsSubscriber;
+
+    var mySubscriberList = [], myAlertList = [];
+
+    var map, markers = [], geocoder;
+    var table, tableData = [];
+    var subscriber = $('.fill-div');
+    var icon = {"red": L.divIcon({
+      className: 'map-marker-red',
+      iconSize: null,
+      html:'<div class="icon" style="font-size:22px;"></div>'
+    }),
+    "blue": L.divIcon({
+      className: 'map-marker-blue',
+      iconSize: null,
+      html:'<div class="icon" style="font-size:22px;"></div>'
+    })};
+
+    function initWs() {
+      webHookSocket();
+      webSubscriberSocket();
+    }
+
+    function webHookSocket() {
+      wsWebHook = new WebSocket(wsUriHook);
+      wsWebHook.onopen = function (evt) { onHookOpen(evt) };
+      wsWebHook.onclose = function(evt) { onHookClose(evt) };
+      wsWebHook.onmessage = function(evt) { onHookMessage(evt) };
+      wsWebHook.onerror = function(evt) { console.log('Error '+evt.data); };
+    }
+
+    function onHookOpen(evt) {
+      console.log('connected');
+      wsWebHook.send(Date.now().toString(), {mask: true});
+    }
+
+    function onHookClose(evt) {
+      console.log('disconnected');
+      $('#alert-container').hide();
+      setTimeout(webHookSocket,1000);
+    }
+
+    function webSubscriberSocket() {
+      wsSubscriber = new WebSocket(wsUriSubs);
+      wsSubscriber.onopen = function (evt) { onSubsOpen(evt) };
+      wsSubscriber.onclose = function(evt) { onSubsClose(evt) };
+      wsSubscriber.onmessage = function(evt) { onSubsMessage(evt) };
+      wsSubscriber.onerror = function(evt) { console.log('Error '+evt.data); };
+    }
+
+    function onSubsOpen(evt) {
+      console.log('connected');
+      wsSubscriber.send(Date.now().toString(), {mask: true});
+    }
+
+    function onSubsClose(evt) {
+      console.log('disconnected');
+      setTimeout(webHookSocket,1000);
+    }
+
+    function onHookMessage(evt) {
+      $('#alert-container').show();
+      var json = evt.data;
+      if (!IsJsonString(json)) {
+        var nJson = json.replace(/^["]/g, "");
+        nJson = nJson.replace(/["]$/g, "");
+        json = JSON.parse(nJson);
+      }
+      json.timestamp = Math.round(new Date(json.eventDate).getTime()/1000);
+      myAlertList.push(json);
+      var subs = $('*[data-deviceId="'+json.hardwareId+'"]');
+      console.log(subs.data('name'));
+      createAlerts(subs.data('xy'));
+    }
+
+    function onSubsMessage(evt) {
+      console.log(evt.data);
+      var json = evt.data;
+      if (!IsJsonString(json)) {
+        var nJson = json.replace(/^["]/g, "");
+        nJson = nJson.replace(/["]$/g, "");
+        json = JSON.parse(nJson);
+      }
+      mySubscriberList.push(json);
+      populateSubscriber();
+    }
+
+    function initMap() {
+      var zoom = 11;
+      geocoder = new google.maps.Geocoder();
+      var lat = 1.413676, lng = 103.5966996,
+              latLng = new L.LatLng(lat, lng);
+
+      map = L.map('map').setView([lat, lng], zoom);
+       L.tileLayer('https://api.mapbox.com/styles/v1/imnjeeb/ciq1nl5el0032dbm4t5agojqe/tiles/256/{z}/{x}/{y}?access_token=' + '<%= access_token %>', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: 'mapbox.streets'
+      }).addTo(map);
+
+      //markers.push(L.marker([lat, lng], {icon:icon}));
+      //map.addLayer(markers[0]);
+
+      subscriber.each(function(i, obj){
+        searchLocation($(this).data('loc'), $(this).data('xy'))
+      });
+    }
+
+    function createDetails(mXy){
+      var subs = $('*[data-xy="'+mXy+'"]');
+//      console.log(mXy, subs.data('name'));
+
+      var location = subs.data('loc');
+      var currTime = new Date();
+      var timeDiff = parseInt(subs.attr('data-endDate')) - currTime.getTime()/1000;
+
+      $("#client-img").attr("src",subs.data('img'));
+      $('#client-name').text(' '+subs.data('name'));
+      $('#expired-in').text(' '+timeToCountdown(timeDiff));
+      geocodePosition(new L.LatLng(location.lat, location.long));
+      $('#neighbour-call').html(' <a href="#"> Call User</a><br/><a href="#"> Call Immediate Peer</a>');
+    }
+
+    function createAlerts(mXy) {
+      var subs = $('*[data-xy="'+mXy+'"]');
+      $('#alert-container').show();
+      subs.addClass('fill-alert');
+      var marker, index;
+      for (var i in markers) {
+        if (mXy == markers[i].id) {
+          index = i;
+          marker = markers[i].marker;
+          break;
+        }
+      }
+      if (typeof marker != 'undefined') {
+        var nLatLng = marker.getLatLng();
+        map.removeLayer(marker);
+        markers.splice(index, 1);
+        createMarker(nLatLng, true, mXy);
+      }
+    }
+
+    function removeAlerts(mXy) {
+      var subs = $('*[data-xy="'+mXy+'"]');
+      $('#alert-container').hide();
+      subs.removeClass('fill-alert');
+      var marker, index;
+      for (var i in markers) {
+        if (mXy == markers[i].id) {
+          index = i;
+          marker = markers[i].marker;
+          break;
+        }
+      }
+      if (typeof marker != 'undefined') {
+        var nLatLng = marker.getLatLng();
+        map.removeLayer(marker);
+        markers.splice(index, 1);
+        createMarker(nLatLng, false, mXy);
+      }
+    }
+
+    function createMarker(nLatLng, hasAlert, mXy) {
+      var mIcon = icon.blue;
+      if (hasAlert) mIcon = icon.red;
+      var subs = $('*[data-xy="'+mXy+'"]');
+//      console.log(mXy, JSON.parse(subs.attr('data-loc')));
+//      console.log(mXy, subs.attr('data-deviceId'));
+      var marker = L.marker(nLatLng, {icon:mIcon, id:mXy}).addTo(map).on('click', function() {
+        marker.valueOf()._icon.style.webkitAnimationPlayState = 'paused';
+        if (mIcon == icon.red) {
+          marker.valueOf()._icon.style.background = "#dc143c";
+        }
+//        geocodePosition(nLatLng);
+        createDetails(mXy)
+        //alert(this.getLatLng());
+      });
+
+      markers.push({"id": mXy, "marker": marker});
+    }
+
+    function searchLocation(address, xy) {
+      var trimAddress = address.trim();
+      trimAddress = trimAddress.replace(/\s+/g, ' ');
+      console.log(trimAddress);
+
+      var mIcon = icon.blue;
+      if (xy=="2")
+        mIcon = icon.red;
+      GMaps.geocode({
+        address: trimAddress,
+        callback: function (results, status) {
+//                console.log(JSON.stringify(results));
+          if (status == 'OK') {
+            var eLatLng = results[0].geometry.location;
+            var latLng = new L.LatLng(eLatLng.lat(), eLatLng.lng());
+            createMarker(latLng,mIcon,xy);
+          }
+        }
+      });
+    }
+
+    function geocodePosition(pos) {
+      var ePos = objToLatLng(pos.lat, pos.lng);
+      geocoder.geocode({
+        latLng: ePos
+      }, function (responses) {
+        if (responses && responses.length > 0) {
+          updateMarkerAddress(responses[0].formatted_address);
+        } else {
+          updateMarkerAddress('Cannot determine address at this location.');
+        }
+      });
+    }
+
+    function objToLatLng(lat, lng) {
+      return new google.maps.LatLng(lat, lng);
+    }
+
+    function updateMarkerAddress(str) {
+      $('#client-loc').text(' '+str);
+    }
+
+    // On Load
+    $(function () {
+      initWs();
+      initMap();
+
+      $('#subscriber-list').enscroll({
+        showOnHover: false,
+        verticalTrackClass: 'track3',
+        verticalHandleClass: 'handle3'
+      });
+
+      $('#alert-container').hide();
+
+      $.ajax({
+        url: '/api/subscribers',
+        type: 'GET'
+      }).done(function(d){
+        if (d.statusCode == 200) {
+          mySubscriberList = JSON.parse(d.Data);
+          populateSubscriber();
+        }
+      });
+
+      $.ajax({
+        url: '/api/subscribers',
+        type: 'GET'
+      }).done(function(d){
+        if (d.statusCode == 200) {
+          mySubscriberList = JSON.parse(d.Data);
+          populateSubscriber();
+        }
+      });
+    });
+
+    function populateSubscriber() {
+      var imgIcon = ['fr-02', 'fr-05', 'fr-03', 'fr-06', 'fr-11', 'fr-09', 'fr-10', 'fr-01', 'fr-08', 'fr-06', 'fr-04'];
+
+      if (mySubscriberList.length > 0) {
+        $('#subscriber-list').html('');
+        mySubscriberList.forEach(function(val, index) {
+          var subsId = 'subs_id_'+index;
+          var uIcon = imgIcon[0];
+          if (index < imgIcon.length) {
+            uIcon = imgIcon[index];
+          } else {
+            var nIndex = Math.round(Math.random()*(imgIcon.length - 1) + 1);
+            uIcon = imgIcon[nIndex];
+          }
+
+          var start_date = Math.round(new Date(val.start_date).getTime()/1000) || 0,
+                  end_date = Math.round(new Date(val.end_date).getTime()/1000) || 0;
+          if (start_date == 0) {
+            start_date = parseInt(val.start_date);
+          }
+          if (end_date == 0) {
+            end_date = parseInt(val.end_date);
+          }
+
+          $('#subscriber-list').append(
+                  '<div class="details">'+
+                  '<a id="'+subsId+'" href="#" class="fill-div" ' +
+                  'data-xy="'+index+'" data-img="images/'+uIcon+'.jpg" ' +
+                  'data-name="' + val.userId +'" '+
+                  'data-deviceId="'+ val.hardwareId +'" '+
+                  'data-hasAlert="'+ false +'" '+
+                  'data-package="'+ val.package +'" '+
+                  'data-telegramId="'+ val.telegramId +'" '+
+                  'data-startDate="'+ start_date +'" '+
+                  'data-endDate="'+ end_date + '" '+
+                  'data-loc=\'{"lat":'+parseFloat(val.location.lat)+',"long":'+parseFloat(val.location.long)+'}\'>'+
+                  ' '+ val.userId +
+                  '</a>' +
+                  '</div>'
+          )
+          var latLng = new L.LatLng(val.location.lat, val.location.long);
+          createMarker(latLng,false,index);
+        });
+
+        $('a[id^="subs_id"]').on("click", function(e){
+          map.setView(new L.LatLng(parseFloat(val.location.lat), parseFloat(val.location.long)), 8);
+          createDetails($(this).data('xy'));
+        });
+      }
+    }
+
+    function timeToCountdown(timeDiff) {
+      // get total seconds between the times
+      var delta = Math.abs(timeDiff) / 1000;
+
+      // calculate (and subtract) whole days
+      var days = Math.floor(delta / 86400);
+      delta -= days * 86400;
+
+      // calculate (and subtract) whole hours
+      var hours = Math.floor(delta / 3600) % 24;
+      delta -= hours * 3600;
+
+      // calculate (and subtract) whole minutes
+      var minutes = Math.floor(delta / 60) % 60;
+      delta -= minutes * 60;
+
+      // what's left is seconds
+      var seconds = delta % 60 || 0;  // in theory the modulus is not required
+
+      var payload = "";
+
+      if (days > 0) payload+=days+" d, ";
+//      else payload+=0+" d, ";
+      if (hours > 0) payload+=hours+" h, ";
+//      else payload+=0+" h, ";
+      if (minutes > 0) payload+=minutes+" m ";
+//      else payload+=0+" m, "+seconds.toFixed(2)+" s";
+      else if (timeDiff < 0) payload+=" Expired!";
+
+      return payload;
+    }
+
+    /**
+     * @return {boolean}
+     */
+    function IsJsonString(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
+    }
+
+    function extend(obj, src) {
+      for (var key in src) {
+        if (src.hasOwnProperty(key)) obj[key] = src[key];
+      }
+      return obj;
+    }
+  </script>
+  <style>
+    #map {
+      margin: 0;
+      width: auto;
+      height: 420px;
+    }
+
+    .map-marker-blue {
+      background:blue;
+      border:9px solid rgba(255,255,255,0.2);
+      color:blue;
+      font-weight:bold;
+      text-align:center;
+      border-radius:50%;
+      line-height:30px;
+    }
+
+    .map-marker-red {
+      background:red;
+      border:9px solid rgba(255,255,255,0.2);
+      color:blue;
+      font-weight:bold;
+      text-align:center;
+      border-radius:50%;
+      line-height:30px;
+      animation: blinker 1.5s linear infinite;
+    }
+
+    @keyframes blinker {
+      50% { opacity: 0.0; }
+    }
+
+    .no-gutter > [class*='col-lg-'], .map-gutter > .col-lg-10 .col-md-9 {
+      padding-right:0;
+    }
+
+    .no-gutter > .col-lg-3 {
+      padding-left:0;
+    }
+
+    .panel-details {
+      background-color: #44475a;
+    }
+
+    .panel-details .desc, .list-subscriber .details {
+      border-bottom: 1px solid #eaeaea;
+      display: inline-block;
+      padding: 10px 0;
+      width: 100%;
+      min-width: 250px;
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    .panel-details .desc:hover, .list-subscriber .details:hover {
+      background: #6272a4;
+    }
+
+    .panel-details .thumb {
+      width: 35px;
+      margin: 0 20px 0 10px;
+      display: block;
+      float: left;
+    }
+
+    .panel-details .details {
+      width: 255px;
+      padding: 5px 0;
+      float: left;
+      margin-left: 2px;
+    }
+
+    .panel-details > .desc p, .emergency-contact {
+      font-size: 14px;
+      margin-left: 10px;
+    }
+
+    .emergency-contact {
+      font-size: 16px;
+      padding-right: 18px;
+      padding-bottom: 15px;
+    }
+
+    .panel-details .desc > h4 {
+      margin-top: -8px;
+      margin-left: 10px;
+    }
+
+    a.fill-div {
+      margin: 5px 0 5px;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .fill-alert {
+      background-color: rgba(171, 46, 70, 0.7);
+    }
+
+    .truncate-address {
+      position: relative;
+      height: 2.4em; /* exactly two lines */
+      max-height: 1.2em;
+    }
+
+    .truncate-address:after {
+      content: '';
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right:0;
+      width:90%;
+      height:1.2em;
+      background: linear-gradient(to right, rgba(68, 71, 90, 0), rgba(68, 71, 90, 1) 98%);
+    }
+
+    .panel-details .desc:hover .truncate-address:after {
+      background: linear-gradient(to right, rgba(98, 114, 164, 0), rgba(98, 114, 164, 1) 98%);
+    }
+
+  </style>
+  </body>
+</html>
